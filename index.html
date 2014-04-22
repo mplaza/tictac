@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tick Tock</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script> <!-- bringing in Angular --> 
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"> </script> <!-- bringing in Angular resource -->     
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script> <!-- bringing in Angular route -->
+	<script src="script.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+	body{
+		/*font-family: 'Gochi Hand', cursive;*/
+		font-family: helvetica;
+	}
+	.square{
+		height: 100px;
+		width:100px;
+		background-color: #bfdcdc;
+		border: 3px solid #b1b1b1;
+		float:left;
+		text-align:center;
+		font-size:60px;
+		line-height:  100px;
+	}
+	.square:hover{
+		background-color: #E0EEEE;
+	}
+	.occupied:hover{
+		background-color: #eee0e0;
+	}
+
+	.leftColumn{
+		clear:left;
+		border-left:none;
+	}
+	.rightColumn{
+		border-right:none;
+	}
+	.topLine{
+		border-top:none;
+	}
+
+	.bottomLine{
+		border-bottom: none;
+	}
+	.winning{
+		background-color: #afd3af;
+	}
+	.square:nth-of-type(1){
+		border-top-left-radius: 8px;
+	}
+	.square:nth-of-type(3){
+		border-top-right-radius: 8px;
+	}
+	.square:nth-of-type(7){
+		border-bottom-left-radius: 8px;
+	}
+	.square:nth-of-type(9){
+		border-bottom-right-radius: 8px;
+	}
+
+	#container{
+		width:315px;
+		height:315px;
+		margin:50px auto;
+		background-color: #b1b1b1;
+		padding:25px;
+		border-radius: 8px;
+		float:left;
+		margin-left: 20%;
+	}
+	#chatWrapper{
+		width:550px;
+		height:315px;
+		margin: 50px 0 0 100px;
+		float:left;
+	}
+	#resultsla{
+		width:120px;
+		height:50px;
+		padding:20px;
+		font-size: 30px;
+		float:left;
+		clear:all;
+		margin-top: 100px;
+		text-align: center;
+	}
+	#scoresla{
+		width:200px;
+		font-size: 30px;
+		float:left;
+		clear:all;
+		margin-top: 100px;
+		text-align: center;
+		padding:10px;
+	}
+	.label{
+		float:left;
+		padding-right: 10px;
+
+	}
+	.score{
+		float: left;
+	}
+	.pineapple select{
+		-webkit-appearance: none;
+		width:200px;
+		height:40px;
+		background-color: #b1b1b1;
+		border: 0;
+		padding-left:15px;
+	}
+	</style>
+</head>
+<body x-ng-app="tickingApp" x-ng-controller="TickTime">
+<!-- <button x-ng-click = "twoPlayer()"></button> -->
+<div class = "pineapple">
+	<select id = "gameType" x-ng-options= "g.type for g in gameOptions" x-ng-model = "gamePlay">
+	<option value="">choose game condition</option>
+	</select>
+</div>
+<div id="container">
+	<div class = "square" x-ng-repeat="b in board" x-ng-class="clearBoard(b);" x-ng-click="choosePlay(b)" >{{b.xoxo}}
+	</div>
+</div>
+<div id="resultsla" x-ng-bind= "winResult"></div>
+<div id = "scoresla">
+	<div class = "label">X games:  </div><div class = "score" x-ng-bind = "xwins"></div>
+	<div class = "label">O games:  </div><div class = "score" x-ng-bind = "owins"></div>
+</div>
+<!-- <div id="chatWrapper">
+<div class="form">Your Name: <input type="text" x-ng-model="username"></div>
+	<div class="form"> Your Message: <input type="text" x-ng-model="message">
+	<div class="name" x-ng-bind="message"></div>
+	<input type="button" value="submit" x-ng-click="addChat()" />
+	<div id="chatMain">
+		<ul>
+			<li x-ng-repeat="c in chats">{{c.yourName}}: {{c.yourMessage}}</li>
+		</ul>
+	</div>
+	</div>
+</div> -->
+</body>
+</html>
