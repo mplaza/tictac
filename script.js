@@ -167,6 +167,7 @@ function TickTime($scope, $resource, $timeout){
 						if($scope.board[winningCombos[i][k]].resident ==0){
 							compSq = winningCombos[i][k];
 							turnwent = 1;
+							console.log("winning")
 						};
 					};
 				};
@@ -183,19 +184,13 @@ function TickTime($scope, $resource, $timeout){
 							if($scope.board[winningCombos[i][k]].resident ==0){
 								compSq = winningCombos[i][k];
 								turnwent = 1;
+								console.log("blocking")
 							};
 						};
 					};
 				};	
 			};
 		};		
-		//choose the center if available
-		if (turnwent == 0){
-			if($scope.board[4].resident ==0){
-					compSq = 4;
-					turnwent = 1;
-			};
-		};
 		//chose a random square
 		if (turnwent == 0){
 			do{
@@ -221,6 +216,7 @@ function TickTime($scope, $resource, $timeout){
 						if($scope.board[winningCombos[i][k]].resident ==0){
 							compSq = winningCombos[i][k];
 							turnwent = 1;
+							console.log("winning")
 						};
 					};
 				};
@@ -237,6 +233,7 @@ function TickTime($scope, $resource, $timeout){
 							if($scope.board[winningCombos[i][k]].resident ==0){
 								compSq = winningCombos[i][k];
 								turnwent = 1;
+								console.log("blocking")
 							};
 						};
 					};
@@ -249,24 +246,26 @@ function TickTime($scope, $resource, $timeout){
 			var total = 0;
 			for(var i=0; i<winningCombos.length; i++){
 				total = 0;
-				total = total + $scope.board[winningCombos[i][0]].resident + $scope.board[winningCombos[i][1]].resident + $scope.board[winningCombos[i][2]].resident
+				total = total + $scope.board[winningCombos[i][0]].resident + $scope.board[winningCombos[i][1]].resident + $scope.board[winningCombos[i][2]].resident;
 				if(total ==5){
-					arrayone.push(winningCombos[i]);
-				};
-				
+					for (var j in winningCombos[i]){
+						if($scope.board[winningCombos[i][j]].resident == 0){
+							arrayone.push(winningCombos[i][j]);
+						}
+					}	
+				};	
 			};
-			var commonindex = null;
-			var matchArr = arrayone[0];
-			for(var i=1; i<arrayone.length; i++){
-				for(var j in arrayone[i]){
-					if(arrayone[i][j] == matchArr[0]||arrayone[i][j] == matchArr[1]||arrayone[i][j] == matchArr[2]){
-						if($scope.board[arrayone[i][j]].resident ==0){
-							compSq = arrayone[i][j];
-							turnwent = 1;
-						};
-					};
-				marchArr = arrayone[i];
-				};
+			arrayone.sort(function(a,b){return a-b});
+			var commonindex = [];
+			for(var i=0; i<arrayone.length; i++){
+				if(arrayone[i]==arrayone[i+1]){
+					commonindex.push(arrayone[i]);
+				}
+			};
+			if(commonindex.length>0){
+			compSq = commonindex[0];
+			turnwent = 1;
+			console.log("I'm forking");
 			};
 		};
 		// prevent fork
@@ -275,86 +274,199 @@ function TickTime($scope, $resource, $timeout){
 			var total = 0;
 			for(var i=0; i<winningCombos.length; i++){
 				total = 0;
-				total = total + $scope.board[winningCombos[i][0]].resident + $scope.board[winningCombos[i][1]].resident + $scope.board[winningCombos[i][2]].resident
-				if(total ==5){
-					arrayone.push(winningCombos[i]);
+				total = total + $scope.board[winningCombos[i][0]].resident + $scope.board[winningCombos[i][1]].resident + $scope.board[winningCombos[i][2]].resident;
+				if(total ==3){
+					for (var j in winningCombos[i]){
+						if($scope.board[winningCombos[i][j]].resident == 0){
+							arrayone.push(winningCombos[i][j]);
+						};
+					};	
 				};
 				
 			};
-			var commonindex = null;
-			var matchArr = arrayone[0];
-			for(var i=1; i<arrayone.length; i++){
-				for(var j in arrayone[i]){
-					if(arrayone[i][j] == matchArr[0]||arrayone[i][j] == matchArr[1]||arrayone[i][j] == matchArr[2]){
-						if($scope.board[winningCombos[i][j]].resident ==0){
-									for(var l=0; l<winningCombos.length; l++){
-										var totalhere = $scope.board[winningCombos[l][0]].resident + $scope.board[winningCombos[l][1]].resident + $scope.board[winningCombos[l][2]].resident;
-										if(totalhere == 5){
-											for(var p in winningCombos[l]){
-												if((winningCombos[i][j] == winningCombos[l][p]) &&($scope.board[winningCombos[l][p]].resident == 0)) {
-													compSq = winningCombos[l][p];
-													turnwent = 1;
-												};
-											};
-										};		
-									};
-								};
+			arrayone.sort(function(a,b){return a-b});
+			var commonindex = [];
+			for(var i=0; i<arrayone.length; i++){
+				if(arrayone[i]==arrayone[i+1]){
+					commonindex.push(arrayone[i])
+				};
+			};
+			if(commonindex.length>0){
+				var ocombos = []
+				for (var m=0; m<winningCombos.length; m++){
+					if ($scope.board[winningCombos[m][0]].resident + $scope.board[winningCombos[m][1]].resident + $scope.board[winningCombos[m][2]].resident == 5){
+						ocombos.push(winningCombos[m]);
+
 					};
-				marchArr = arrayone[i];
+					
+				};
+				var tempopos = null;
+				var forkblockopos = null;
+				for(var v=0; v<ocombos.length; v++){
+					if($scope.board[ocombos[v][0]].resident == 0){
+						var countermat = 0;
+						for(var i=0; i<commonindex.length; i++){
+							if(ocombos[v][1] == commonindex[i] || ocombos[v][2] == commonindex[i]){
+								countermat +=1;
+							}
+						};
+						if(countermat == 0){
+							compSq = ocombos[v][0];
+							turnwent = 1;
+							console.log("I'm blocking" + compSq);
+						};			
+					};
+					if($scope.board[ocombos[v][1]].resident == 0){
+						var countermat = 0;
+						for(var i=0; i<commonindex.length; i++){
+							if(ocombos[v][0] == commonindex[i] || ocombos[v][2] == commonindex[i]){
+								countermat +=1;
+								}
+						};
+						if(countermat == 0){
+							compSq = ocombos[v][1];
+							turnwent = 1;
+							console.log("I'm blocking" + compSq);
+						};			
+					};
+					if($scope.board[ocombos[v][2]].resident == 0){
+						var countermat = 0;
+						for(var i=0; i<commonindex.length; i++){
+							if(ocombos[v][0] == commonindex[i] || ocombos[v][1] == commonindex[i]){
+								countermat +=1;
+								}
+						};
+						if(countermat == 0){
+							compSq = ocombos[v][2];
+							turnwent = 1;
+							console.log("I'm blocking" + compSq);
+						};			
+					};
 				};
 			};
 		};
+		//chose the opposite corner to itself if x not inbetween and player choose edge
+		if (turnwent == 0){
+			if($scope.board[0].resident ==5){
+				if($scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 6;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[0].resident ==5){
+				if($scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 2;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[2].resident ==5){
+				if($scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 8;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[2].resident ==5){
+				if($scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 0;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[6].resident ==5){
+				if($scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 0;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[6].resident ==5){
+				if($scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 8;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}
+			else if($scope.board[8].resident ==5){
+				if($scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 2;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			}	
+			else if($scope.board[8].resident ==5){
+				if($scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+					compSq = 6;
+					turnwent = 1;
+					console.log("opp corner to myself");
+				};
+			};		
+		};
+
 		//choose the center if available
 		if (turnwent == 0){
 			if($scope.board[4].resident ==0){
 					compSq = 4;
 					turnwent = 1;
+					console.log("center");
 			};
 		};
+
 		//choose the opposite corner
 		if (turnwent == 0){
 			if($scope.board[0].resident ==3){
 				if($scope.board[8].resident ==0){
 					compSq = 8;
 					turnwent = 1;
+					console.log("opp corner to opp");
 				};
 			}
 			else if($scope.board[2].resident ==3){
 				if($scope.board[6].resident ==0){
 					compSq = 6;
 					turnwent = 1;
+					console.log("opp corner to opp");
 				};
 			}
 			else if($scope.board[6].resident ==3){
 				if($scope.board[2].resident ==0){
 					compSq = 2;
 					turnwent = 1;
+					console.log("opp corner to opp");
 				};
 			}
 			else if($scope.board[8].resident ==3){
 				if($scope.board[0].resident ==0){
 					compSq = 0;
 					turnwent = 1;
+					console.log("opp corner to opp");
 				};
 			};		
 		};
+
 		//choose an empty corner
 		if (turnwent == 0){
 			if($scope.board[0].resident ==0){
 					compSq = 0;
 					turnwent = 1;
+					console.log("empty corner");
 			}
 			else if($scope.board[2].resident ==0){
 					compSq = 2;
 					turnwent = 1;
+					console.log("empty corner");
 			}
 			else if($scope.board[6].resident ==0){
 					compSq = 6;
 					turnwent = 1;
+					console.log("empty corner");
 			}
 			else if($scope.board[8].resident ==0){
 					compSq = 8;
 					turnwent = 1;
+					console.log("empty corner");
 			};
 		};
 		//choose an empty side
@@ -362,18 +474,22 @@ function TickTime($scope, $resource, $timeout){
 			if($scope.board[0].resident + $scope.board[1].resident + $scope.board[2].resident ==0){
 					compSq = 1;
 					turnwent = 1;
+					console.log("empty side");
 			}
 			else if($scope.board[0].resident + $scope.board[3].resident + $scope.board[6].resident ==0){
 					compSq = 3;
 					turnwent = 1;
+					console.log("empty side");
 			}
 			else if($scope.board[2].resident + $scope.board[5].resident + $scope.board[8].resident ==0){
 					compSq = 5;
 					turnwent = 1;
+					console.log("empty side");
 			}
 			else if($scope.board[6].resident + $scope.board[7].resident + $scope.board[8].resident ==0){
 					compSq = 7;
 					turnwent = 1;
+					console.log("empty side");
 			};
 		};
 		//chose a random square
@@ -464,7 +580,13 @@ function TickTime($scope, $resource, $timeout){
 			$timeout(function(){rcomputerChoice();}, 500);
 		};
 		if($scope.lastWinner == 5 && $scope.isaih==true){
-			$timeout(function(){computerChoice();}, 500);
+			$timeout(function(){
+				var cornerArray = [0,2,6,8];
+				compSq = cornerArray[Math.round(Math.random()*3)];
+				console.log(compSq);
+				$scope.board[compSq].resident = 5;
+				$scope.board[compSq].xoxo = "0";
+			}, 500);
 		};
 		if($scope.lastWinner == 5 && $scope.isaii==true){
 			$timeout(function(){icomputerChoice();}, 500);
@@ -485,3 +607,26 @@ function TickTime($scope, $resource, $timeout){
 
 	
 };
+
+		// if($scope.board[commonindex].resident ==0){
+						// 	console.log("prevent fork");
+						// 			for(var l=0; l<winningCombos.length; l++){
+						// 				var totalhere = $scope.board[winningCombos[l][0]].resident + $scope.board[winningCombos[l][1]].resident + $scope.board[winningCombos[l][2]].resident;
+						// 				if(totalhere == 5){
+						// 					var matchsquare = null;
+						// 					console.log(commonindex);
+											// for(var p in winningCombos[l]){
+											// 	var countmatch = 0;
+											// 	if(winningCombos[l][p] == commonindex){
+											// 		countmatch +=1;
+											// 	}
+											// 	if(count)
+											// 	// if((commonindex == winningCombos[l][p]) &&($scope.board[winningCombos[l][p]].resident == 0)) {
+											// 	// 	compSq = winningCombos[l][p];
+											// 	// 	turnwent = 1;
+											// 	// 	console.log("prevent fork")
+											// 	// };
+											// };
+								// 		};		
+								// 	};
+								// };
