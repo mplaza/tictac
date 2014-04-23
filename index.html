@@ -111,17 +111,25 @@
 		border: 0;
 		padding-left:15px;
 	}
-	.notactive, .active{
+	.notactive {
 		position: relative;
-		width:200px;
+		font-weight: bold;
+		width:220px;
 		padding:10px;
 		margin: 0 auto;
-		background-color: gray;
-		color:white;
+		background-color: #bfdcdc;
+		color:gray;
 		outline: none;
 		cursor: pointer;
 	}
-	.notactive:hover{
+	.active{
+		position: relative;
+		font-weight: bold;
+		width:220px;
+		padding:10px;
+		margin: 0 auto;
+		outline: none;
+		cursor: pointer;
 		background-color: #bfdcdc;
 		color:gray;
 	}
@@ -135,7 +143,10 @@
     margin-top: -6px;
     border-width: 6px 0 6px 6px;
     border-style: solid;
-    border-color: transparent #fff;    
+    border-color: transparent #fff; 
+    transform:rotate(90deg); 
+    -webkit-transform:rotate(90deg);  
+    -ms-transform:rotate(90deg);
 	}
 	.notactive .dropdown{
 		position: absolute;
@@ -146,21 +157,25 @@
 		pointer-events:none;
 
 	}
-	.notactive:hover .dropdown{
-		opacity: 1;
-	}
 	.active .dropdown{
 		opacity: 1;
+		background-color: #bfdcdc;
+		color:gray;
 	}
 	.dropdown li{
 		list-style: none;
-		padding:5px;
+		margin-left:-40px;
+		padding: 8px;
+		font-size: 14px;
+	}
+	.dropdown li:hover{
+	 background-color: #afd3af;
 	}
 
 	</style>
 </head>
 <body x-ng-app="tickingApp" x-ng-controller="TickTime">
-<div x-ng-class="activate" x-ng-click="dropdownToggle()">
+<div x-ng-class="activate" x-ng-click="dropdownToggle()" x-ng-mouseenter="dropdownToggle()" x-ng-mouseleave="dropdownToggle()">
     <span>Choose Game Condition</span>
     <ul class="dropdown">
         <li>Impossible Game</li>
