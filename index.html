@@ -11,6 +11,7 @@
 	body{
 		/*font-family: 'Gochi Hand', cursive;*/
 		font-family: helvetica;
+		color:gray;
 	}
 	.square{
 		height: 100px;
@@ -110,10 +111,64 @@
 		border: 0;
 		padding-left:15px;
 	}
+	.notactive, .active{
+		position: relative;
+		width:200px;
+		padding:10px;
+		margin: 0 auto;
+		background-color: gray;
+		color:white;
+		outline: none;
+		cursor: pointer;
+	}
+	.notactive:hover{
+		background-color: #bfdcdc;
+		color:gray;
+	}
+	.notactive:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -6px;
+    border-width: 6px 0 6px 6px;
+    border-style: solid;
+    border-color: transparent #fff;    
+	}
+	.notactive .dropdown{
+		position: absolute;
+		top:100%;
+		left:0;
+		right:0;
+		opacity: 0;
+		pointer-events:none;
+
+	}
+	.notactive:hover .dropdown{
+		opacity: 1;
+	}
+	.active .dropdown{
+		opacity: 1;
+	}
+	.dropdown li{
+		list-style: none;
+		padding:5px;
+	}
+
 	</style>
 </head>
 <body x-ng-app="tickingApp" x-ng-controller="TickTime">
-<!-- <button x-ng-click = "twoPlayer()"></button> -->
+<div x-ng-class="activate" x-ng-click="dropdownToggle()">
+    <span>Choose Game Condition</span>
+    <ul class="dropdown">
+        <li>Impossible Game</li>
+        <li>Intermediate Game</li>
+        <li>Easy Game</li>
+        <li>Two Player</li>
+    </ul>
+</div>
 <div class = "pineapple">
 	<select id = "gameType" x-ng-options= "g.type for g in gameOptions" x-ng-model = "gamePlay">
 	<option value="">choose game condition</option>

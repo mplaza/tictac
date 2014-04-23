@@ -11,7 +11,7 @@ function TickTime($scope, $resource, $timeout){
 	{row:2, column:1, resident:0, xoxo:null, pos:7, wc: 0},
 	{row:2, column:2, resident:0, xoxo:null, pos:8, wc: 0}
 	];
-	$scope.gameOptions = [{type: 'Difficult Computer', play: false}, {type: 'Intermediate Computer', play: false}, {type:'Easy Computer', play:false}, {type:'Two Player', play:false } ];
+	$scope.gameOptions = [{type: 'Impossible Computer', play: false}, {type: 'Intermediate Computer', play: false}, {type:'Easy Computer', play:false}, {type:'Two Player', play:false } ];
 	$scope.clearBoard = function(x){
 		var ret = "";
 		if(x.column == 0){
@@ -347,63 +347,55 @@ function TickTime($scope, $resource, $timeout){
 		};
 		//chose the opposite corner to itself if x not inbetween and player choose edge
 		if (turnwent == 0){
-			if($scope.board[0].resident ==5){
-				if($scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			if($scope.board[0].resident ==5 && $scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("0open1");
 					compSq = 6;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[0].resident ==5){
-				if($scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[0].resident ==5 && $scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("0open2");
 					compSq = 2;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[2].resident ==5){
-				if($scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[2].resident ==5 && $scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("2open1");
 					compSq = 8;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[2].resident ==5){
-				if($scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[2].resident ==5 && $scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("2open2");
 					compSq = 0;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[6].resident ==5){
-				if($scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[6].resident ==5 && $scope.board[0].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("6open1");
 					compSq = 0;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[6].resident ==5){
-				if($scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[6].resident ==5 && $scope.board[8].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("6open2");
 					compSq = 8;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}
-			else if($scope.board[8].resident ==5){
-				if($scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[8].resident ==5  && $scope.board[2].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("8open1");
 					compSq = 2;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
 			}	
-			else if($scope.board[8].resident ==5){
-				if($scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+			else if($scope.board[8].resident ==5 && $scope.board[6].resident ==0 && $scope.board[4].resident ==0 && $scope.board[0].resident+$scope.board[2].resident+$scope.board[6].resident+$scope.board[8].resident==8){
+				console.log("8open2");
 					compSq = 6;
 					turnwent = 1;
 					console.log("opp corner to myself");
-				};
-			};		
-		};
+			}	
+		}
 
 		//choose the center if available
 		if (turnwent == 0){
@@ -576,6 +568,7 @@ function TickTime($scope, $resource, $timeout){
 		{row:2, column:2, resident:0, xoxo:null, pos:8, wc: 0}
 		];
 		gameOver = 0;
+		$scope.winResult = null;
 		if($scope.lastWinner == 5 && $scope.isaie==true){
 			$timeout(function(){rcomputerChoice();}, 500);
 		};
@@ -594,39 +587,17 @@ function TickTime($scope, $resource, $timeout){
 
 	}
 
-
-	$scope.username = "Melanie";
-	$scope.message = "hi";
-	$scope.chats=[{yourName:$scope.username, yourMessage:$scope.message}];
-	$scope.addChat = function(){
-		console.log('executed');
-		$scope.chats.push({yourName:$scope.username, yourMessage:$scope.message});
-	};
-	
+	$scope.activate = "notactive";
+	$scope.dropdownToggle = function(){
+		if($scope.activate == "notactive"){
+			$scope.activate = "active";
+		}
+		else{
+			$scope.activate = "notactive";
+		};
+	}
 	
 
 	
 };
 
-		// if($scope.board[commonindex].resident ==0){
-						// 	console.log("prevent fork");
-						// 			for(var l=0; l<winningCombos.length; l++){
-						// 				var totalhere = $scope.board[winningCombos[l][0]].resident + $scope.board[winningCombos[l][1]].resident + $scope.board[winningCombos[l][2]].resident;
-						// 				if(totalhere == 5){
-						// 					var matchsquare = null;
-						// 					console.log(commonindex);
-											// for(var p in winningCombos[l]){
-											// 	var countmatch = 0;
-											// 	if(winningCombos[l][p] == commonindex){
-											// 		countmatch +=1;
-											// 	}
-											// 	if(count)
-											// 	// if((commonindex == winningCombos[l][p]) &&($scope.board[winningCombos[l][p]].resident == 0)) {
-											// 	// 	compSq = winningCombos[l][p];
-											// 	// 	turnwent = 1;
-											// 	// 	console.log("prevent fork")
-											// 	// };
-											// };
-								// 		};		
-								// 	};
-								// };
