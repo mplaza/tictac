@@ -175,28 +175,30 @@
 	</style>
 </head>
 <body x-ng-app="tickingApp" x-ng-controller="TickTime">
-<div x-ng-class="activate" x-ng-click="dropdownToggle()" x-ng-mouseenter="dropdownToggle()" x-ng-mouseleave="dropdownToggle()">
-    <span>Choose Game Condition</span>
+<div x-ng-class="activate"  x-ng-mouseenter="dropdownToggle()" x-ng-mouseleave="dropdownToggle()">
+<!-- x-ng-click="dropdownToggle()" --> 
+    <span>{{whatyouredoin}}</span>
     <ul class="dropdown">
-        <li>Impossible Game</li>
-        <li>Intermediate Game</li>
-        <li>Easy Game</li>
-        <li>Two Player</li>
+    <li x-ng-repeat="g in gameOptions" x-ng-click="dropdownSelect($index)">{{g.type}}</li>
+  <!--       <li id="ig" x-ng-click="choosePlay()">Impossible Game</li>
+        <li id="intg" x-ng-click="choosePlay()">Intermediate Game</li>
+        <li id="eg" x-ng-click="choosePlay()">Easy Game</li>
+        <li id="tp" x-ng-click="choosePlay()">Two Player</li> -->
     </ul>
 </div>
-<div class = "pineapple">
+<!-- <div class = "pineapple">
 	<select id = "gameType" x-ng-options= "g.type for g in gameOptions" x-ng-model = "gamePlay">
 	<option value="">choose game condition</option>
 	</select>
-</div>
+</div> -->
 <div id="container">
 	<div class = "square" x-ng-repeat="b in board" x-ng-class="clearBoard(b);" x-ng-click="choosePlay(b)" >{{b.xoxo}}
 	</div>
 </div>
 <div id="resultsla" x-ng-bind= "winResult"></div>
 <div id = "scoresla">
-	<div class = "label">X games:  </div><div class = "score" x-ng-bind = "xwins"></div>
-	<div class = "label">O games:  </div><div class = "score" x-ng-bind = "owins"></div>
+	<div class = "label">X wins:  </div><div class = "score" x-ng-bind = "xwins"></div>
+	<div class = "label">O wins:  </div><div class = "score" x-ng-bind = "owins"></div>
 </div>
 <!-- <div id="chatWrapper">
 <div class="form">Your Name: <input type="text" x-ng-model="username"></div>

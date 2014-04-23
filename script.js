@@ -38,17 +38,35 @@ function TickTime($scope, $resource, $timeout){
 	var turnCount = 1;
 	var compSq = null;
 	var gameOver = 0;
+	$scope.playin = null;
+	$scope.whatyouredoin = "Choose Game Condition";
+	$scope.dropdownSelect=function(boop){
+		$scope.playin = boop;
+		if(boop == 0){
+			$scope.whatyouredoin = "Impossible Computer";
+		}
+		if(boop == 1){
+			$scope.whatyouredoin = "Intermediate Computer";
+		}
+		if(boop == 2){
+			$scope.whatyouredoin = "Easy Computer";
+		}
+		if(boop == 3){
+			$scope.whatyouredoin = "Two Player";
+		}
+		console.log($scope.playin);
+	}
 	$scope.choosePlay = function(x){
-		if($scope.gamePlay == $scope.gameOptions[0]){
+		if($scope.playin == 0){
 			$scope.aigameSmarter(x);
 		};
-		if($scope.gamePlay == $scope.gameOptions[1]){
-			$scope.aigameintermediate(x);
-		}
-		if($scope.gamePlay == $scope.gameOptions[2]){
+		if($scope.playin == 1){
+			$scope.aigameintermediate(x);	
+		};
+		if($scope.playin == 2){
 			$scope.aigame(x);
 		};
-		if($scope.gamePlay == $scope.gameOptions[3]){
+		if($scope.playin == 3){
 			$scope.markBox(x);
 		}
 	}
@@ -199,7 +217,7 @@ function TickTime($scope, $resource, $timeout){
 			while ($scope.board[compSq].resident !==0);
 		};
 		$scope.board[compSq].resident = 5;
-		$scope.board[compSq].xoxo = "0";
+		$scope.board[compSq].xoxo = "O";
 		winCheck();
 	}
 	//chooses an index based on really complicated shit for the computer to play
@@ -492,7 +510,7 @@ function TickTime($scope, $resource, $timeout){
 			while ($scope.board[compSq].resident !==0);
 		};
 		$scope.board[compSq].resident = 5;
-		$scope.board[compSq].xoxo = "0";
+		$scope.board[compSq].xoxo = "O";
 		winCheck();
 	}
 	$scope.winResult = null;
@@ -578,7 +596,7 @@ function TickTime($scope, $resource, $timeout){
 				compSq = cornerArray[Math.round(Math.random()*3)];
 				console.log(compSq);
 				$scope.board[compSq].resident = 5;
-				$scope.board[compSq].xoxo = "0";
+				$scope.board[compSq].xoxo = "O";
 			}, 500);
 		};
 		if($scope.lastWinner == 5 && $scope.isaii==true){
