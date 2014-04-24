@@ -7,6 +7,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script> <!-- bringing in Angular route -->
 	<script src="script.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
 	<style type="text/css">
 	body{
 		/*font-family: 'Gochi Hand', cursive;*/
@@ -176,7 +178,21 @@
 		list-style: none;
 		margin-left: -40px;
 	}
-
+	input[type=text]{
+		border-radius: 5px;
+		border: 2px solid #b1b1b1;
+	}
+	input[type=button]{
+	background-color: #bfdcdc;
+	border-radius: 5px;
+	width:100px;
+	height:25px;
+	color: gray;
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: bold;
+	border: 3px solid #b1b1b1;
+	}
 
 	</style>
 </head>
@@ -198,8 +214,8 @@
 </div>
 
 <div id="chatWrapper">
-<div class="form">Your Name: <input type="text" x-ng-model="username"></div>
-	<div class="form"> Your Message: <input type="text" x-ng-model="message">
+	<div class="form">Your Name: <input type="text" x-ng-model="username" placeholder="compy"></div>
+	<div class="form"> Your Message: <input type="text" x-ng-model="message"  placeholder="welcome human"></div>
 	<input type="button" value="submit" x-ng-click="addChat()" />
 	<div id="chatMain">
 		<ul>

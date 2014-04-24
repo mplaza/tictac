@@ -133,7 +133,7 @@ function TickTime($scope, $resource, $timeout){
 		$scope.isnai = false;
 		if(gameOver==0){
 			if(x.resident==0){
-				turnCount +=2;
+				// turnCount +=2;
 				x.resident = 3;
 				x.xoxo = "X";
 				winCheck();
@@ -150,7 +150,7 @@ function TickTime($scope, $resource, $timeout){
 		$scope.isnai = false;
 		if(gameOver==0){
 			if(x.resident==0){
-				turnCount +=2;
+				// turnCount +=2;
 				x.resident = 3;
 				x.xoxo = "X";
 				winCheck();
@@ -714,10 +714,12 @@ function TickTime($scope, $resource, $timeout){
 			$scope.activate = "notactive";
 		};
 	}
-	$scope.username = "Melanie";
-	$scope.message = "hi";
-	$scope.chats=[{yourName:$scope.username, yourMessage:$scope.message}];
+	// $scope.username = "Compy";
+	// $scope.message = "welcome human";
+	console.log($scope.username);
+	$scope.chats=[];
 	$scope.addChat = function(){
+		$scope.pumpkin +=1;
 		console.log('executed');
 		$scope.chats.push({yourName:$scope.username, yourMessage:$scope.message});
 	};
