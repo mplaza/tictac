@@ -52,9 +52,9 @@ function TickTime($scope, $resource, $timeout){
 			$scope.whatyouredoin = "Easy Computer";
 		}
 		if(boop == 3){
+			resetBoard();
 			$scope.whatyouredoin = "Two Player";
 		}
-		console.log($scope.playin);
 	}
 	$scope.choosePlay = function(x){
 		if($scope.playin == 0){
@@ -188,7 +188,6 @@ function TickTime($scope, $resource, $timeout){
 						if($scope.board[winningCombos[i][k]].resident ==0){
 							compSq = winningCombos[i][k];
 							turnwent = 1;
-							console.log("winning")
 								var compMessageArray = ["I win"];
 								$scope.chats.push({yourName:"Compy", yourMessage:compMessageArray[Math.floor(Math.random()*compMessageArray.length)]});
 								gotoBottom();
@@ -258,7 +257,7 @@ function TickTime($scope, $resource, $timeout){
 		//will choose space to block;
 		if (turnwent == 0){
 			for(var i=0; i<winningCombos.length; i++){
-				var total = 0;
+				var total= 0;
 				for(var j in winningCombos[i]){
 					total += $scope.board[winningCombos[i][j]].resident;
 					if(total == 6){
@@ -716,13 +715,29 @@ function TickTime($scope, $resource, $timeout){
 	}
 	// $scope.username = "Compy";
 	// $scope.message = "welcome human";
+	$scope.pumpkin = 0;
 	console.log($scope.username);
 	$scope.chats=[];
 	$scope.addChat = function(){
 		$scope.pumpkin +=1;
 		console.log('executed');
 		$scope.chats.push({yourName:$scope.username, yourMessage:$scope.message});
+		$scope.message = " ";
 	};
+	$scope.modcheck = function(){
+		if($scope.pumpkin > 0){
+			return "aftermod";
+		}
+	}
+	// $scope.watchList = 0;
+	// $scope.appleList = 0;
+	// $scope.$watch('username', function(newVal, oldVal){
+	// 	$scope.watchList = $scope.watchList + 1;
+	// });
+	// $scope.$watch('message', function(newVal, oldVal){
+	// 	$scope.watchList = $scope.watchList + 1;
+	// 	console.log($scope.watchList);
+	// });
 	function gotoBottom(){
 		document.getElementById("chatMain").scrollTop = document.getElementById("chatMain").scrollHeight;
 	};
