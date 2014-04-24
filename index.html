@@ -63,18 +63,25 @@
 	#container{
 		width:315px;
 		height:315px;
-		margin:50px auto;
 		background-color: #b1b1b1;
 		padding:25px;
 		border-radius: 8px;
-		float:left;
-		margin-left: 20%;
+		position: absolute;
+		left:30%;
+		top:150px;
 	}
 	#chatWrapper{
-		width:550px;
-		height:315px;
-		margin: 50px 0 0 100px;
-		float:left;
+		width:300px;
+		height:500px;
+		margin: 70px 0 0 100px;
+		position: absolute;
+		left:60%;
+		top:100px;
+	}
+	#chatMain{
+		width: 300px;
+		height:300px;
+		overflow: scroll;
 	}
 	#resultsla{
 		width:120px;
@@ -82,18 +89,16 @@
 		padding:20px;
 		font-size: 30px;
 		float:left;
-		clear:all;
-		margin-top: 100px;
 		text-align: center;
+		clear: all;
 	}
 	#scoresla{
 		width:200px;
 		font-size: 30px;
 		float:left;
-		clear:all;
-		margin-top: 100px;
 		text-align: center;
-		padding:10px;
+		padding:20px;
+		clear:all;
 	}
 	.label{
 		float:left;
@@ -103,15 +108,8 @@
 	.score{
 		float: left;
 	}
-	.pineapple select{
-		-webkit-appearance: none;
-		width:200px;
-		height:40px;
-		background-color: #b1b1b1;
-		border: 0;
-		padding-left:15px;
-	}
 	.notactive {
+		float:left;
 		position: relative;
 		font-weight: bold;
 		width:220px;
@@ -121,8 +119,10 @@
 		color:gray;
 		outline: none;
 		cursor: pointer;
+		border-radius: 8px;
 	}
 	.active{
+		float:left;
 		position: relative;
 		font-weight: bold;
 		width:220px;
@@ -132,6 +132,7 @@
 		cursor: pointer;
 		background-color: #bfdcdc;
 		color:gray;
+		border-radius: 8px;
 	}
 	.notactive:after {
     content: "";
@@ -171,39 +172,34 @@
 	.dropdown li:hover{
 	 background-color: #afd3af;
 	}
+	#chatMain ul li{
+		list-style: none;
+		margin-left: -40px;
+	}
+
 
 	</style>
 </head>
 <body x-ng-app="tickingApp" x-ng-controller="TickTime">
 <div x-ng-class="activate"  x-ng-mouseenter="dropdownToggle()" x-ng-mouseleave="dropdownToggle()">
-<!-- x-ng-click="dropdownToggle()" --> 
     <span>{{whatyouredoin}}</span>
     <ul class="dropdown">
     <li x-ng-repeat="g in gameOptions" x-ng-click="dropdownSelect($index)">{{g.type}}</li>
-  <!--       <li id="ig" x-ng-click="choosePlay()">Impossible Game</li>
-        <li id="intg" x-ng-click="choosePlay()">Intermediate Game</li>
-        <li id="eg" x-ng-click="choosePlay()">Easy Game</li>
-        <li id="tp" x-ng-click="choosePlay()">Two Player</li> -->
     </ul>
 </div>
-<!-- <div class = "pineapple">
-	<select id = "gameType" x-ng-options= "g.type for g in gameOptions" x-ng-model = "gamePlay">
-	<option value="">choose game condition</option>
-	</select>
-</div> -->
-<div id="container">
-	<div class = "square" x-ng-repeat="b in board" x-ng-class="clearBoard(b);" x-ng-click="choosePlay(b)" >{{b.xoxo}}
-	</div>
-</div>
-<div id="resultsla" x-ng-bind= "winResult"></div>
 <div id = "scoresla">
 	<div class = "label">X wins:  </div><div class = "score" x-ng-bind = "xwins"></div>
 	<div class = "label">O wins:  </div><div class = "score" x-ng-bind = "owins"></div>
 </div>
-<!-- <div id="chatWrapper">
+<div id="resultsla" x-ng-bind= "winResult"></div>
+<div id="container">
+	<div class = "square" x-ng-repeat="b in board" x-ng-class="clearBoard(b);" x-ng-click="choosePlay(b)" >{{b.xoxo}}
+	</div>
+</div>
+
+<div id="chatWrapper">
 <div class="form">Your Name: <input type="text" x-ng-model="username"></div>
 	<div class="form"> Your Message: <input type="text" x-ng-model="message">
-	<div class="name" x-ng-bind="message"></div>
 	<input type="button" value="submit" x-ng-click="addChat()" />
 	<div id="chatMain">
 		<ul>
@@ -211,6 +207,6 @@
 		</ul>
 	</div>
 	</div>
-</div> -->
+</div>
 </body>
 </html>
